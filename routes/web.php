@@ -21,6 +21,7 @@ Route::middleware(['prevent-back-history'])->group(function () {
         });
 
         Route::prefix('year')->name('year.')->group(function () {
+            Route::PATCH('/activated', [AcademicYearController::class, 'toggleActive'])->name('toggleActive');
             Route::resource('', AcademicYearController::class)->parameters(['' => 'academicYear']);
         });
     });

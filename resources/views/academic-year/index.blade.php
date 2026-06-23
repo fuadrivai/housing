@@ -4,6 +4,15 @@
 @section('content')
     <!-- Recent Activities + Points Distribution -->
     <div class="row g-3">
+        <div class="alert alert-success alert-custom" id="successAlert">
+            <i data-lucide="check-circle" style="width:18px;height:18px;"></i> House created successfully!
+        </div>
+        <div class="alert alert-danger alert-custom" id="errorAlert">
+            <i data-lucide="alert-circle" style="width:18px;height:18px;"></i> <span id="errorMessage"></span>
+        </div>
+    </div>
+
+    <div class="row g-3">
         <div class="col-md-12">
             <div class="dashboard-card h-100">
                 <div class="card-header">
@@ -13,7 +22,7 @@
                     </button>
                 </div>
                 <div class="card-body no-padding" style="overflow-x:auto;">
-                    <table class="table-activities" aria-label="Recent activities table">
+                    <table class="table-activities" aria-label="Recent activities table" id="academicYearsTable">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -36,8 +45,10 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-success" href="/academic-years/{{ $year->id }}/edit">
-                                            <i data-lucide="edit"></i> view detail</a>
+                                        <a class="btn btn-sm btn-success" href="#" data-bs-toggle="modal"
+                                            data-bs-target="#addAcademicYearModal"
+                                            onclick="$('#id').val('{{ $year->id }}'); $('#academicYearName').val('{{ $year->name }}'); $('#activeYearSwitch').prop('checked', {{ $year->is_active ? 'true' : 'false' }});">
+                                            <i data-lucide="edit"></i> edit</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -78,14 +89,13 @@
                             </div>
                         </div>
 
-                        <!-- Active Toggle -->
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <span class="fw-semibold small">
                                 <i data-lucide="toggle-left" style="width:14px;height:14px;"></i> Set as Active Year
                             </span>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" name="is_active"
-                                    id="activeYearSwitch" checked>
+                                    id="activeYearSwitch">
                                 <label class="form-check-label" for="activeYearSwitch"></label>
                             </div>
                         </div>
@@ -118,103 +128,67 @@
 @section('content-script')
     <script>
         $(document).ready(function() {
-            $('#addAcademicYearForm').on('submit', function(e) {
+            $('#academicYearsTable').on('change', 'input[type="checkbox"]', function() {
+                const yearId = $(this).data('year-id');
+                const isActive = $(this).is(':checked') ? 1 : 0;
 
+                $.ajax({
+                    url: '/year/activated',
+                    type: 'PATCH',
+                    data: {
+                        id: yearId,
+                        is_active: isActive
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $('#successAlert').removeClass('d-none');
+                        location.reload();
+                    },
+                    error: function(xhr) {
+                        $('#errorAlert').removeClass('d-none');
+                        location.reload();
+                        alert('Error toggling active status.');
+                    }
+                });
+            });
+
+            $('#addAcademicYearForm').on('submit', async function(e) {
                 e.preventDefault();
-
                 $('#modalErrorAlert').addClass('d-none');
                 $('#modalSuccessAlert').addClass('d-none');
-
                 const id = $('#id').val();
                 const name = $('#academicYearName').val().trim();
                 const isActive = $('#activeYearSwitch').is(':checked') ? 1 : 0;
-
                 if (!name) {
                     $('#modalErrorMessage').text('Academic Year is required.');
                     $('#modalErrorAlert').removeClass('d-none');
                     return;
                 }
-
-                const $submitBtn = $('#submitAcademicYearBtn');
-
-                $submitBtn.prop('disabled', true).html(
-                    '<span class="spinner-border spinner-border-sm"></span> Saving...'
-                );
-
                 let url = '/year';
                 let data = {
                     name: name,
                     is_active: isActive
                 };
-
-                // mode edit
                 if (id !== '') {
-                    url = '/academic-years/' + id;
+                    url = '/year/' + id;
                     data._method = 'PUT';
                 }
 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: data,
-
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-
-                    success: function(response) {
-
-                        $('#modalSuccessAlert')
-                            .removeClass('d-none')
-                            .html(`
-                    <i data-lucide="check-circle" style="width:14px;height:14px;"></i>
-                    ${response.message}
-                `);
-
-                        $('#addAcademicYearForm')[0].reset();
-                        $('#id').val('');
-
-                        lucide.createIcons();
-
-                        // optional: reload table
-                        // location.reload();
-
-                        // atau refresh datatable
-                        // table.ajax.reload();
-
-                    },
-
-                    error: function(xhr) {
-
-                        let message = 'Something went wrong';
-
-                        if (xhr.status === 422) {
-
-                            let errors = xhr.responseJSON.errors;
-
-                            message = Object.values(errors)
-                                .map(error => error[0])
-                                .join('<br>');
-
-                        } else if (xhr.responseJSON?.message) {
-
-                            message = xhr.responseJSON.message;
-                        }
-
-                        $('#modalErrorMessage').html(message);
-                        $('#modalErrorAlert').removeClass('d-none');
-                    },
-
-                    complete: function() {
-
-                        $submitBtn.prop('disabled', false).html(`
-                <i data-lucide="save" style="width:16px;height:16px;"></i> Submit
-            `);
-
-                        lucide.createIcons();
-                    }
-                });
-
+                try {
+                    const response = await ajaxRequest({
+                        url: url,
+                        method: 'POST',
+                        data: data,
+                        button: '#submitAcademicYearBtn',
+                        loadingText: 'Saving...'
+                    });
+                    location.reload();
+                } catch (err) {
+                    $('#modalErrorMessage').html(err.message);
+                    $('#modalErrorAlert').removeClass('d-none');
+                }
             });
         });
     </script>

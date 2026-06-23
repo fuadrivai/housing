@@ -45,6 +45,7 @@ class AcademicYearController extends Controller
 
         return response()->json(['message' => 'Academic Year created successfully', 'academicYear' => $academicYear], 201);
     }
+    
 
     /**
      * Display the specified resource.
@@ -67,7 +68,22 @@ class AcademicYearController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'is_active' => 'nullable|boolean',
+        ]);
+        $data['id'] = $id;
+
+        $academicYear = $this->academicYearService->put($data);
+
+        return response()->json(['message' => 'Academic Year updated successfully', 'academicYear' => $academicYear], 200);
+    }
+
+    public function toggleActive(Request $request)
+    {
+        $academicYear = $this->academicYearService->toggleActive($request);
+
+        return response()->json(['message' => 'Academic Year active status updated successfully', 'academicYear' => $academicYear], 200);
     }
 
     /**
