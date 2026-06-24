@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
+            $table->string('nik')->unique();
             $table->enum('role', ['student', 'teacher', 'staff']);
             $table->foreignId('organization_id')->nullable();
             $table->foreignId('branch_id')->nullable();

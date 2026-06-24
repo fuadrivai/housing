@@ -1,0 +1,214 @@
+.info-highlight {
+    background: linear-gradient(135deg, #eef2ff 0%, #f0f4ff 100%);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #d1d5ff;
+    margin-top: 12px;
+}
+
+.info-highlight .house-icon {
+    font-size: 1.8rem;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.info-highlight .house-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+}
+
+.info-highlight .year-badge {
+    background: #6366f1;
+    color: #fff;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.selection-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+.selection-card .card-header {
+    background: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.95rem;
+}
+
+.selection-card .card-body {
+    padding: 16px 18px;
+}
+
+.people-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-top: 10px;
+}
+
+.people-list .list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f8fafc;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.people-list .list-item:hover {
+    background: #fafcfd;
+}
+
+.people-list .list-item.selected {
+    background: #eef2ff;
+}
+
+.people-list .list-item .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #475569;
+    flex-shrink: 0;
+}
+
+.people-list .list-item .name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.people-list .list-item .badge-role {
+    font-size: 0.7rem;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge-student {
+    background: #e0f2fe;
+    color: #0c4a6e;
+}
+
+.badge-teacher {
+    background: #fdf2f8;
+    color: #9d174d;
+}
+
+.badge-staff {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.selected-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.selected-table td {
+    vertical-align: middle;
+    padding: 8px 8px;
+}
+
+.selected-table .avatar-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.7rem;
+    color: #475569;
+}
+
+.btn-remove-member {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.btn-remove-member:hover {
+    background: #fee2e2;
+}
+
+.sticky-footer {
+    position: sticky;
+    bottom: 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    z-index: 100;
+}
+
+.sticky-footer .selected-count {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.sticky-footer .btn {
+    border-radius: var(--radius-sm);
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.btn-soft-primary {
+    background: #eef2ff;
+    color: #6366f1;
+    border: 1px solid #c7d2fe;
+}
+
+.btn-soft-primary:hover {
+    background: #e0e7ff;
+}
+
+@media (max-width: 991.98px) {
+    .people-list {
+        max-height: 300px;
+    }
+
+    .action-buttons-vertical {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 12px;
+    }
+}

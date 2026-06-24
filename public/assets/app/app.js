@@ -27,6 +27,19 @@ $(function () {
         updateToggleIcon();
     }
 
+    $("#masterParent").on("click", function (e) {
+        e.preventDefault();
+        if (isMobile || !isSidebarCollapsed) {
+            $(this).toggleClass("expanded");
+            $("#masterSubmenu").toggleClass("expanded");
+        }
+    });
+
+    $("#masterSubmenu .nav-item").on("click", function () {
+        $("#masterParent").addClass("expanded");
+        $("#masterSubmenu").addClass("expanded");
+    });
+
     // ============ RESIZE HANDLER ============
     function handleResize() {
         const wasMobile = isMobile;

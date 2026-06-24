@@ -17,4 +17,9 @@ class People extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function member()
+    {
+        return $this->hasOne(Member::class, 'people_id');
+    }
 }

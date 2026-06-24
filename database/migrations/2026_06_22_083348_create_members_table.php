@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id');
-            $table->foreignId('house_id');
+            $table->foreignId('poeple_id');
+            $table->foreignId('house_id')->nullable();
             $table->foreignId('academic_year_id');
             $table->enum('role', ['captain', 'vice_captain', 'advisor', 'member']);
             $table->timestamps();

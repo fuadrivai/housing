@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,9 +20,17 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
          User::create([
-                'name' => "Administrator",
-                'email' => "admin@mutiaraharapan.sch.id",
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            ]);
+            'name' => "Administrator",
+            'email' => "admin@mutiaraharapan.sch.id",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+
+        Branch::create(['name' => "Bintaro"]);
+        Branch::create(['name' => "Bangka"]);
+        Branch::create(['name' => "Semarang"]);
+
+        Organization::create(['name' => "Primary"]);
+        Organization::create(['name' => "Secondary"]);
+        Organization::create(['name' => "Operational"]);
     }
 }

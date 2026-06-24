@@ -7,26 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     protected $guarded = ['id'];
-    protected $with = ['person', 'house', 'organization', 'branch', 'academicYear'];
+    protected $with = ['person', 'academicYear'];
 
     public function person()
     {
-        return $this->belongsTo(People::class);
+        return $this->hasOne(People::class);
     }
 
     public function house()
     {
         return $this->belongsTo(House::class);
-    }
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
-    public function branch()
-    {
-        return $this->belongsTo(Branch::class);
     }
 
     public function academicYear()
