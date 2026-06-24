@@ -79,11 +79,14 @@ class PeopleImplement implements PeopleService
         });
     }
 
-    public function getPersonNomember($yearId,$houseId)
+    public function getPersonNomember($yearId, $houseId)
     {
-        $people = Member::where('academic_year_id', $yearId)
+        $people = People::whereNotIn(
+            'id',
+            Member::where('academic_year_id', $yearId)
                 ->where('house_id', $houseId)
-                ->pluck('people_id');
+                ->pluck('people_id')
+        )->get();
         return $people;
     }
 }
