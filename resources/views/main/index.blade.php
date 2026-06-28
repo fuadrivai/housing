@@ -40,6 +40,8 @@
     <script src="/assets/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- Chart.js -->
     <script src="/assets/plugins/chart.umd.min.js"></script>
+    <script src="/assets/plugins/jquery.blockUI.js"></script>
+    <script src="/assets/plugins/sweetalert.js"></script>
     <script src="/assets/app/app.js"></script>
     @yield('content-script')
 

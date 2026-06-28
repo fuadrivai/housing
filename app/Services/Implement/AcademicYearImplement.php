@@ -83,4 +83,9 @@ class AcademicYearImplement implements AcademicYearService
         $academicYear = AcademicYear::findOrFail($id);
         return $academicYear->delete();
     }
+
+    public function getActive()
+    {
+        return AcademicYear::where('is_active', 1)->first();
+    }
 }

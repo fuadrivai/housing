@@ -9,9 +9,13 @@ class Member extends Model
     protected $guarded = ['id'];
     protected $with = ['person', 'academicYear'];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     public function person()
     {
-        return $this->hasOne(People::class);
+        return $this->belongsTo(People::class, 'people_id');
     }
 
     public function house()

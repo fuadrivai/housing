@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id');
-            $table->foreignId('academic_year_id');
-            $table->enum('type', ['reward', 'punishment']);
+            $table->foreignId('member_id')->nullable()->constrained('members')->restrictOnDelete();
+            $table->foreignId('house_id')->constrained('houses')->restrictOnDelete();
+            $table->foreignId('academic_year_id')->constrained('academic_years')->restrictOnDelete();
+            $table->enum('type', ['reward','punishment']);
             $table->integer('value')->default(0);
             $table->string('reason')->nullable();
-            $table->date('date');
-            $table->string('created_by')->nullable();
+            $table->date('date')->nullable();
+            $table->foreignId('created_by')->nullable();
             $table->timestamps();
         });
     }

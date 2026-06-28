@@ -30,7 +30,7 @@ Route::middleware(['prevent-back-history'])->group(function () {
         });
 
         Route::prefix('person')->name('person.')->group(function () {
-            Route::get('/no-member/{yearId}/{houseId}', [PersonController::class, 'getPeopleNoMember'])->name('getPeopleNoMember');
+            Route::get('/yearId/{yearId}', [PersonController::class, 'getPeopleNoMember'])->name('getPeopleNoMember');
             Route::resource('', PersonController::class)->parameters(['' => 'person']);
         });
 
@@ -43,6 +43,8 @@ Route::middleware(['prevent-back-history'])->group(function () {
         });
 
         Route::prefix('member')->name('member.')->group(function () {
+            Route::get('/house/{houseId}/academic/{yearId}', [MemberController::class, 'editHouseMember'])->name('editHouseMember');
+            Route::get('/{houseId}/{yearId}', [MemberController::class, 'getMembersByHouseAndYear'])->name('getMembersByHouseAndYear');
             Route::resource('', MemberController::class)->parameters(['' => 'member']);
         });
     });

@@ -115,9 +115,9 @@ class PersonController extends Controller
         //
     }
 
-    public function getPeopleNoMember($yearId,$houseId)
+    public function getPeopleNoMember($yearId)
     {
-        $people = $this->peopleService->getPersonNomember($yearId, $houseId);
+        $people = $this->peopleService->getPersonNomember($yearId);
         return response()->json($people);
     }
 }

@@ -9,4 +9,6 @@ interface MemberService
     public function post($data);
     public function put($data);
     public function delete($id);
+    public function getHouseByActiveAcademicYear();
+    public function getMembersByHouseAndYear($houseId, $yearId);
 }

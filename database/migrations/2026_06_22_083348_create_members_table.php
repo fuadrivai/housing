@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('people_id');
-            $table->foreignId('house_id')->nullable();
-            $table->foreignId('academic_year_id');
-            $table->enum('role', ['captain', 'vice_captain', 'advisor', 'member']);
+            $table->foreignId('people_id')->constrained('people')->cascadeOnDelete();
+            $table->foreignId('house_id')->constrained('houses')->restrictOnDelete();
+            $table->foreignId('academic_year_id')->constrained('academic_years')->restrictOnDelete();
+            $table->enum('role', ['captain','vice_captain','advisor','member'])->default('member');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->unique(['people_id','academic_year_id']);
         });
     }
 

@@ -1,3 +1,4 @@
+$(document).ajaxStop($.unblockUI);
 $(function () {
     const $sidebar = $("#sidebar");
     const $sidebarOverlay = $("#sidebarOverlay");
@@ -248,6 +249,7 @@ function ajaxRequest(options) {
             button: null,
             loadingText: "Processing...",
             buttonText: "Submit",
+            contentType: null,
         };
 
         settings = $.extend({}, settings, options);
@@ -269,11 +271,18 @@ function ajaxRequest(options) {
             type: settings.method,
             data: settings.data,
 
-            processData: !(settings.data instanceof FormData),
+            processData:
+                settings.data instanceof FormData
+                    ? false
+                    : settings.contentType === "application/json"
+                      ? false
+                      : true,
+
             contentType:
                 settings.data instanceof FormData
                     ? false
-                    : "application/x-www-form-urlencoded; charset=UTF-8",
+                    : (settings.contentType ??
+                      "application/x-www-form-urlencoded; charset=UTF-8"),
 
             cache: false,
 
@@ -289,9 +298,8 @@ function ajaxRequest(options) {
             error: function (xhr) {
                 let message = "Something went wrong";
 
-                if (xhr.status === 422) {
-                    let errors = xhr.responseJSON.errors;
-                    message = Object.values(errors)
+                if (xhr.status === 422 && xhr.responseJSON?.errors) {
+                    message = Object.values(xhr.responseJSON.errors)
                         .map((e) => e[0])
                         .join("<br>");
                 } else if (xhr.responseJSON?.message) {
@@ -315,4 +323,16 @@ function ajaxRequest(options) {
             },
         });
     });
+}
+
+function blockUI(message = null) {
+    $.blockUI({
+        message:
+            message ??
+            '<label><i class="fa fa-spinner fa-spin"></i> Just a moment...</label>',
+    });
+}
+
+function unBlockUI() {
+    $.unblockUI();
 }
