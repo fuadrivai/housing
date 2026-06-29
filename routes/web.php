@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HouseController;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PersonController;
@@ -15,6 +16,11 @@ Route::middleware(['prevent-back-history'])->group(function () {
 
     Route::get('auth', [AuthController::class, 'index'])->middleware('guest')->name('login');
     Route::post('auth', [AuthController::class, 'authenticate'])->middleware('guest')->name('authenticate');
+
+    Route::prefix('leaderboard')->name('leaderboard.')->group(function () {
+        Route::get('/year/{yearId}', [LeaderboardController::class, 'getLeaderboardData'])->name('getLeaderboardData');
+        Route::get('/', [LeaderboardController::class, 'index'])->name('index');
+    });
     
     Route::group(['middleware' => 'auth'], function () {
         
@@ -54,5 +60,6 @@ Route::middleware(['prevent-back-history'])->group(function () {
             Route::get('/{houseId}/{yearId}', [PointController::class, 'getPointsByHouseAndYear'])->name('getPointsByHouseAndYear');
             Route::resource('', PointController::class)->parameters(['' => 'point']);
         });
+        
     });
 });
