@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\BranchService;
 use App\Services\OrganizationService;
-use App\Services\peopleService;
+use App\Services\PeopleService;
 use Illuminate\Http\Request;
 
 class PersonController extends Controller
@@ -12,7 +12,7 @@ class PersonController extends Controller
 
     private BranchService $branchService;
     private OrganizationService $organizationService;
-    private peopleService $peopleService;
+    private PeopleService $peopleService;
 
     public function __construct(BranchService $branchService, OrganizationService $organizationService, PeopleService $peopleService)
     {

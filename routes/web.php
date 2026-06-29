@@ -8,6 +8,7 @@ use App\Http\Controllers\HouseController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PersonController;
+use App\Http\Controllers\PointController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['prevent-back-history'])->group(function () {
@@ -46,6 +47,12 @@ Route::middleware(['prevent-back-history'])->group(function () {
             Route::get('/house/{houseId}/academic/{yearId}', [MemberController::class, 'editHouseMember'])->name('editHouseMember');
             Route::get('/{houseId}/{yearId}', [MemberController::class, 'getMembersByHouseAndYear'])->name('getMembersByHouseAndYear');
             Route::resource('', MemberController::class)->parameters(['' => 'member']);
+        });
+
+        Route::prefix('point')->name('point.')->group(function () {
+            Route::get('/house/{houseId}/academic/{yearId}', [PointController::class, 'editHousePoint'])->name('editHousePoint');
+            Route::get('/{houseId}/{yearId}', [PointController::class, 'getPointsByHouseAndYear'])->name('getPointsByHouseAndYear');
+            Route::resource('', PointController::class)->parameters(['' => 'point']);
         });
     });
 });

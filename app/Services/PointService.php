@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-interface PeopleService
+interface PointService
 {
     public function get();
-    public function getPersonNomember($yearId);
     public function show($id);
     public function post($data);
     public function put($data);
     public function delete($id);
+    public function getHouseTotalPoint($yearId);
 }

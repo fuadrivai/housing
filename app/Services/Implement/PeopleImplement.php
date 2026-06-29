@@ -2,9 +2,8 @@
 
 namespace App\Services\Implement;
 
-use App\Models\Member;
 use App\Models\People;
-use App\Services\peopleService;
+use App\Services\PeopleService;
 use Illuminate\Support\Facades\DB;
 
 class PeopleImplement implements PeopleService
@@ -89,6 +88,5 @@ class PeopleImplement implements PeopleService
                 $query->where('academic_year_id', $yearId);
             }
         ])->get();
-        return $people->load('member');
     }
 }

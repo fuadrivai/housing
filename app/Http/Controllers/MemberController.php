@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Services\AcademicYearService;
-use App\Services\BranchService;
 use App\Services\HouseService;
 use App\Services\MemberService;
 use App\Services\OrganizationService;
-use App\Services\peopleService;
+use App\Services\PeopleService;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
 
     private OrganizationService $organizationService;
-    private peopleService $peopleService;
+    private PeopleService $peopleService;
     private AcademicYearService $academicYearService;
     private HouseService $houseService;
     private MemberService $memberService;

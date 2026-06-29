@@ -22,7 +22,7 @@
             <input type="hidden" id="id" value="{{ isset($person) ? $person->id : '' }}">
             <!-- Full Name -->
             <div class="row mb-2">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <label class="form-label"><i data-lucide="user" style="width:14px;height:14px;"></i> Full
                         Name</label>
                     <div class="input-group-custom">
@@ -31,7 +31,7 @@
                             class="form-control-custom" id="fullName" placeholder="e.g., John Smith" required>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <label class="form-label"><i data-lucide="user" style="width:14px;height:14px;"></i> NIK
                         (student/staff)</label>
                     <div class="input-group-custom">
@@ -53,7 +53,7 @@
                             <option value="" disabled selected>Select branch</option>
                             @foreach ($branches as $branch)
                                 <option value="{{ $branch->id }}"
-                                    {{ $person && $person->branch_id == $branch->id ? 'selected' : '' }}>
+                                    {{ isset($person) && $person->branch_id == $branch->id ? 'selected' : '' }}>
                                     {{ $branch->name }}
                                 </option>
                             @endforeach
@@ -68,7 +68,7 @@
                         <select class="form-select-custom" id="organization" required>
                             @foreach ($organizations as $organization)
                                 <option value="{{ $organization->id }}"
-                                    {{ $person && $person->organization_id == $organization->id ? 'selected' : '' }}>
+                                    {{ isset($person) && $person->organization_id == $organization->id ? 'selected' : '' }}>
                                     {{ $organization->name }}
                                 </option>
                             @endforeach
@@ -85,11 +85,13 @@
                         <span class="input-icon"><i data-lucide="users" style="width:18px;height:18px;"></i></span>
                         <select class="form-select-custom" id="role" required>
                             <option value="" disabled selected>Select role</option>
-                            <option value="student" {{ $person && $person->role == 'student' ? 'selected' : '' }}>Student
+                            <option value="student" {{ isset($person) && $person->role == 'student' ? 'selected' : '' }}>
+                                Student
                             </option>
-                            <option value="teacher" {{ $person && $person->role == 'teacher' ? 'selected' : '' }}>Teacher
+                            <option value="teacher" {{ isset($person) && $person->role == 'teacher' ? 'selected' : '' }}>
+                                Teacher
                             </option>
-                            <option value="staff" {{ $person && $person->role == 'staff' ? 'selected' : '' }}>Staff
+                            <option value="staff" {{ isset($person) && $person->role == 'staff' ? 'selected' : '' }}>Staff
                             </option>
                         </select>
                     </div>
@@ -101,23 +103,27 @@
                         <span class="input-icon"><i data-lucide="bookmark" style="width:18px;height:18px;"></i></span>
                         <select class="form-select-custom" id="grade">
                             <option value="">Not applicable</option>
-                            <option value="Grade 4" {{ $person && $person->grade == '4' ? 'selected' : '' }}>Grade 4
+                            <option value="Grade 4" {{ isset($person) && $person->grade == '4' ? 'selected' : '' }}>Grade 4
                             </option>
-                            <option value="Grade 5" {{ $person && $person->grade == '5' ? 'selected' : '' }}>Grade 5
+                            <option value="Grade 5" {{ isset($person) && $person->grade == '5' ? 'selected' : '' }}>Grade 5
                             </option>
-                            <option value="Grade 6" {{ $person && $person->grade == '6' ? 'selected' : '' }}>Grade 6
+                            <option value="Grade 6" {{ isset($person) && $person->grade == '6' ? 'selected' : '' }}>Grade 6
                             </option>
-                            <option value="Grade 7" {{ $person && $person->grade == '7' ? 'selected' : '' }}>Grade 7
+                            <option value="Grade 7" {{ isset($person) && $person->grade == '7' ? 'selected' : '' }}>Grade 7
                             </option>
-                            <option value="Grade 8" {{ $person && $person->grade == '8' ? 'selected' : '' }}>Grade 8
+                            <option value="Grade 8" {{ isset($person) && $person->grade == '8' ? 'selected' : '' }}>Grade 8
                             </option>
-                            <option value="Grade 9" {{ $person && $person->grade == '9' ? 'selected' : '' }}>Grade 9
+                            <option value="Grade 9" {{ isset($person) && $person->grade == '9' ? 'selected' : '' }}>Grade
+                                9
                             </option>
-                            <option value="Grade 10" {{ $person && $person->grade == '10' ? 'selected' : '' }}>Grade 10
+                            <option value="Grade 10" {{ isset($person) && $person->grade == '10' ? 'selected' : '' }}>
+                                Grade 10
                             </option>
-                            <option value="Grade 11" {{ $person && $person->grade == '11' ? 'selected' : '' }}>Grade 11
+                            <option value="Grade 11" {{ isset($person) && $person->grade == '11' ? 'selected' : '' }}>
+                                Grade 11
                             </option>
-                            <option value="Grade 12" {{ $person && $person->grade == '12' ? 'selected' : '' }}>Grade 12
+                            <option value="Grade 12" {{ isset($person) && $person->grade == '12' ? 'selected' : '' }}>
+                                Grade 12
                             </option>
                         </select>
                     </div>

@@ -12,4 +12,9 @@ class House extends Model
     {
         return $this->hasMany(Member::class);
     }
+
+    public function points()
+    {
+        return $this->hasMany(Point::class);
+    }
 }

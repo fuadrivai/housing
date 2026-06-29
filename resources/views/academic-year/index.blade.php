@@ -128,30 +128,26 @@
 @section('content-script')
     <script>
         $(document).ready(function() {
-            $('#academicYearsTable').on('change', 'input[type="checkbox"]', function() {
+            $('#academicYearsTable').on('change', 'input[type="checkbox"]', async function() {
                 const yearId = $(this).data('year-id');
                 const isActive = $(this).is(':checked') ? 1 : 0;
-
-                $.ajax({
-                    url: '/year/activated',
-                    type: 'PATCH',
-                    data: {
-                        id: yearId,
-                        is_active: isActive
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        $('#successAlert').removeClass('d-none');
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        $('#errorAlert').removeClass('d-none');
-                        location.reload();
-                        alert('Error toggling active status.');
-                    }
-                });
+                blockUI(); // Block UI during submission
+                try {
+                    const response = await ajaxRequest({
+                        url: '/year/activated',
+                        method: 'PATCH',
+                        data: {
+                            id: yearId,
+                            is_active: isActive
+                        },
+                    });
+                    $('#successAlert').removeClass('d-none');
+                    location.reload();
+                } catch (err) {
+                    $('#errorAlert').removeClass('d-none');
+                    location.reload();
+                    alert('Error toggling active status.');
+                }
             });
 
             $('#addAcademicYearForm').on('submit', async function(e) {

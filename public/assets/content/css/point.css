@@ -1,0 +1,56 @@
+/* House card */
+.house-point-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s;
+    overflow: hidden;
+    text-align: center;
+    padding: 24px 20px;
+}
+
+.house-point-card:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.house-emoji {
+    font-size: 2.6rem;
+    margin-bottom: 8px;
+}
+
+.house-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.total-points {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    letter-spacing: -0.03em;
+}
+
+.point-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+.member-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.btn-outline-primary {
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}

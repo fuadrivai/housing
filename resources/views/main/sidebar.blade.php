@@ -11,19 +11,19 @@
     <nav class="sidebar-nav" aria-label="Primary navigation">
         <div class="nav-section">Main Menu</div>
 
-        <a href="/" class="nav-item active" aria-current="page">
+        <a href="/" class="nav-item {{ Request::is('/') ? 'active' : '' }}" aria-current="page">
             <span class="nav-icon"><i data-lucide="layout-dashboard"></i></span>
             <span class="nav-label">Dashboard</span>
         </a>
-        <a href="/member" class="nav-item">
+        <a href="/member" class="nav-item {{ Request::is('member*') ? 'active' : '' }}">
             <span class="nav-icon"><i data-lucide="users"></i></span>
             <span class="nav-label">Members</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="/point" class="nav-item {{ Request::is('point*') ? 'active' : '' }}">
             <span class="nav-icon"><i data-lucide="star"></i></span>
             <span class="nav-label">Points</span>
         </a>
-        <a href="#" class="nav-item">
+        <a href="/leaderboard" class="nav-item {{ Request::is('leaderboard') ? 'active' : '' }}">
             <span class="nav-icon"><i data-lucide="trophy"></i></span>
             <span class="nav-label">Leaderboard</span>
         </a>
@@ -38,33 +38,34 @@
             </span>
             <span class="submenu-arrow"><i data-lucide="chevron-right" style="width:16px;height:16px;"></i></span>
         </button>
-        <ul class="submenu" id="masterSubmenu">
+        <ul class="submenu {{ Request::is('branch*') || Request::is('organization*') || Request::is('year*') || Request::is('houses*') || Request::is('person*') ? 'expanded' : '' }}"
+            id="masterSubmenu">
             <li>
-                <a href="/branch" class="nav-item">
+                <a href="/branch" class="nav-item {{ Request::is('branch*') ? 'active' : '' }}">
                     <span class="nav-icon"><i data-lucide="git-branch" style="width:16px;height:16px;"></i></span>
                     <span class="nav-label">Branch</span>
                 </a>
             </li>
             <li>
-                <a href="/organization" class="nav-item">
+                <a href="/organization" class="nav-item {{ Request::is('organization*') ? 'active' : '' }}">
                     <span class="nav-icon"><i data-lucide="building" style="width:16px;height:16px;"></i></span>
                     <span class="nav-label">Organization</span>
                 </a>
             </li>
             <li>
-                <a href="/year" class="nav-item">
+                <a href="/year" class="nav-item {{ Request::is('year*') ? 'active' : '' }}">
                     <span class="nav-icon"><i data-lucide="calendar" style="width:16px;height:16px;"></i></span>
                     <span class="nav-label">Academic Year</span>
                 </a>
             </li>
             <li>
-                <a href="/houses" class="nav-item">
+                <a href="/houses" class="nav-item {{ Request::is('houses*') ? 'active' : '' }}">
                     <span class="nav-icon"><i data-lucide="building-2"></i></span>
                     <span class="nav-label">Houses</span>
                 </a>
             </li>
             <li>
-                <a href="/person" class="nav-item">
+                <a href="/person" class="nav-item {{ Request::is('person*') ? 'active' : '' }}">
                     <span class="nav-icon"><i data-lucide="user"></i></span>
                     <span class="nav-label">User</span>
                 </a>

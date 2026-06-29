@@ -11,9 +11,11 @@ use App\Services\Implement\HouseImplement;
 use App\Services\Implement\MemberImplement;
 use App\Services\Implement\OrganizationImplement;
 use App\Services\Implement\PeopleImplement;
+use App\Services\Implement\PointImplement;
 use App\Services\MemberService;
 use App\Services\OrganizationService;
-use App\Services\peopleService;
+use App\Services\PeopleService;
+use App\Services\PointService;
 use Illuminate\Support\ServiceProvider;
 
 class ServicesProvider extends ServiceProvider
@@ -27,8 +29,9 @@ class ServicesProvider extends ServiceProvider
         AcademicYearService::class => AcademicYearImplement::class,
         OrganizationService::class => OrganizationImplement::class,
         BranchService::class => BranchImplement::class,
-        peopleService::class => PeopleImplement::class,
+        PeopleService::class => PeopleImplement::class,
         MemberService::class => MemberImplement::class,
+        PointService::class => PointImplement::class,
     ];
 
     public function provides(): array
@@ -38,8 +41,9 @@ class ServicesProvider extends ServiceProvider
             AcademicYearService::class, 
             OrganizationService::class, 
             BranchService::class, 
-            peopleService::class, 
-            MemberService::class
+            PeopleService::class, 
+            MemberService::class,
+            PointService::class
         ];
     }
     public function register(): void
